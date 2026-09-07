@@ -183,13 +183,13 @@ const Content = (props: Props) => {
           </div>
         </div>
 
-        {/* ② オプション + スタイル */}
+        {/* ② スタイル + オプション（左にスタイル、右にオプション） */}
         <div style={{ display: 'flex', gap: '8px' }}>
           <div style={{ flex: 1 }}>
             <Select 
-              placeholder="オプション"
-              options={getOptionOptions()}
-              onChange={setOption}
+              placeholder="スタイル"
+              options={getStyleOptions()} 
+              onChange={setStyle}
               styles={selectStyles}
               isClearable
               isSearchable={false}
@@ -198,9 +198,9 @@ const Content = (props: Props) => {
 
           <div style={{ flex: 1 }}>
             <Select 
-              placeholder="スタイル"
-              options={getStyleOptions()} 
-              onChange={setStyle}
+              placeholder="オプション"
+              options={getOptionOptions()}
+              onChange={setOption}
               styles={selectStyles}
               isClearable
               isSearchable={false}
