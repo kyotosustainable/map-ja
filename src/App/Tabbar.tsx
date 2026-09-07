@@ -10,7 +10,7 @@ const Content = () => {
   return (
     <div className="tabbar">
       <ul>
-        <li><Link to="/"><div className="icon"><FaHome /></div><div className="text">マップ</div></Link></li>
+        <li><Link to="/"><div className="icon"><FaMap /></div><div className="text">マップ</div></Link></li>
         <li><Link to="/list"><div className="icon"><FaList /></div><div className="text">リスト</div></Link></li>
         {/* カテゴリの行を削除しました */}
         {/* 写真から探すの行を削除しました */}
