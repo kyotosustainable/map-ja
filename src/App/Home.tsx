@@ -30,12 +30,27 @@ const Content = (props: Props) => {
   // ▼ 選択肢生成
   // =============================
 
+  // 【追加】カテゴリ（カンマ・読点分割）
+  const getCategoryOptions = () => {
+    const all = new Set<string>();
+    props.data.forEach((item: any) => {
+      const raw = item['カテゴリ'] || item['Category'];
+      if (raw) {
+        raw.split(/[,、]/).forEach((c: string) => {
+          const trimmed = c.trim();
+          if (trimmed) all.add(trimmed);
+        });
+      }
+    });
+    return Array.from(all).map(v => ({ value: v, label: v }));
+  };
+
   // スタイル（カンマ分割）
   const getStyleOptions = () => {
     const all = new Set<string>();
     props.data.forEach((item: any) => {
       if (item['スタイル']) {
-        item['スタイル'].split(',').forEach((s: string) => all.add(s.trim()));
+        item['スタイル'].split(/[,、]/).forEach((s: string) => all.add(s.trim()));
       }
     });
     return Array.from(all).map(v => ({ value: v, label: v }));
@@ -46,13 +61,13 @@ const Content = (props: Props) => {
     const all = new Set<string>();
     props.data.forEach((item: any) => {
       if (item['オプション']) {
-        item['オプション'].split(',').forEach((o: string) => all.add(o.trim()));
+        item['オプション'].split(/[,、]/).forEach((o: string) => all.add(o.trim()));
       }
     });
     return Array.from(all).map(v => ({ value: v, label: v }));
   };
 
-  // 単一値系
+  // 単一値系（ヴィーガンレベルなど）
   const getOptions = (key: string) => {
     const uniqueValues = Array.from(
       new Set(props.data.map((item: any) => item[key]).filter(Boolean))
@@ -85,7 +100,7 @@ const Content = (props: Props) => {
             <Select
               placeholder="カテゴリ"
               isClearable
-              options={getOptions('カテゴリ')}
+              options={getCategoryOptions()} // ← ここを getCategoryOptions() に変更
               onChange={setCategory}
               styles={selectStyles}
               isSearchable={false}
