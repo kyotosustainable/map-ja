@@ -14,7 +14,11 @@ export const filterShops = (
     const targetCat = category ? category.value : queryCategory;
     const targetLvl = level ? level.value : queryLevel;
 
-    const matchCat = !targetCat || item['カテゴリ'] === targetCat;
+    // 【修正】カンマ区切りの中に targetCat が含まれているかを判定
+    const rawCat = item['カテゴリ'] || item['Category'] || '';
+    const shopCategories = rawCat.split(/[,、]/).map((c: string) => c.trim());
+    const matchCat = !targetCat || shopCategories.includes(targetCat);
+
     const matchLvl = !targetLvl || item['ヴィーガンレベル'] === targetLvl;
 
     const matchStl = !style ||
